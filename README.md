@@ -2,9 +2,51 @@
 
 BMI Calculator
 
-## Main point
+## Refactoring
 
-It uses a function as a class(widget) property type.
+> Previous code
+
+In this code we where using the GestureDecorator outside the ReuseAbleCard.
+
+```
+...
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('BIM CALCULATOR'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        gender = Gender.male;
+                      });
+                    },
+                    child: ReuseAbleCard(
+                      color: gender == Gender.male
+                          ? activeCardColor
+                          : inactiveCardColor,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
+                    ),
+                  ),
+                ),
+...
+```
+
+> Refactoring
+
+We want to use the GestureDecorator within the ReuseAbleCard. So, a refactoring is required.
+
+The code above uses a function as a class(widget) property type.
 
 ```
 class ReuseAbleCard extends StatelessWidget {
