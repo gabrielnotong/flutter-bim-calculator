@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
 
 import '../components/rounded_icon_button.dart';
@@ -10,6 +11,7 @@ import '../components/reusable_card.dart';
 import '../constants.dart';
 
 const minWeight = 40;
+const minHeight = 110;
 const minAge = 18;
 
 enum Gender {
@@ -24,7 +26,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender gender;
-  double _myHeight = 0.0;
+  int _myHeight = minHeight;
   int _myWeight = minWeight;
   int _myAge = minAge;
 
@@ -125,11 +127,11 @@ class _InputPageState extends State<InputPage> {
                           ),
                         ),
                         child: Slider(
-                          value: _myHeight,
+                          value: _myHeight.toDouble(),
                           min: 0,
                           max: 240,
                           onChanged: (cursorValue) {
-                            setState(() => _myHeight = cursorValue);
+                            setState(() => _myHeight = cursorValue.toInt());
                           },
                         ),
                       ),
@@ -232,9 +234,19 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             label: 'CALCULATE',
             onPress: () {
+              CalculatorBrain calc = CalculatorBrain(
+                height: _myHeight,
+                weight: _myWeight,
+              );
+
               Navigator.pushNamed(
                 context,
                 '/results',
+                arguments: {
+                  'bimResult': calc.calculateBMI(),
+                  'bimResultText': calc.getResult(),
+                  'bimResultInterpretation': calc.getInterpretation(),
+                },
               );
             },
           )

@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator_brain.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
@@ -7,6 +8,11 @@ import '../components/result_input.dart';
 class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Map<String, String> args = ModalRoute.of(context).settings.arguments;
+    final String bimResult = args['bimResult'];
+    final String bimResultText = args['bimResultText'];
+    final String bimResultInterpretation = args['bimResultInterpretation'];
+
     return Scaffold(
       appBar: AppBar(
         title: kAppTitleText,
@@ -33,7 +39,7 @@ class ResultsPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ResultInput(
-                      label: 'OVERWEIGHT',
+                      label: bimResultText,
                       color: Colors.tealAccent,
                       fontSize: 20.0,
                       fontWeight: FontWeight.w600,
@@ -41,7 +47,7 @@ class ResultsPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ResultInput(
-                      label: '26.7',
+                      label: bimResult,
                       color: Colors.white,
                       fontSize: 80.0,
                       fontWeight: FontWeight.w900,
@@ -49,8 +55,7 @@ class ResultsPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ResultInput(
-                      label:
-                          'You have a higher than normal body weight. try to exercise more.',
+                      label: bimResultInterpretation,
                       color: Colors.white,
                       fontSize: 20.0,
                     ),
