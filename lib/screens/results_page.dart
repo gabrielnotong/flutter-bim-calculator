@@ -8,10 +8,10 @@ import '../components/result_input.dart';
 class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> args = ModalRoute.of(context).settings.arguments;
-    final String bimResult = args['bimResult'];
-    final String bimResultText = args['bimResultText'];
-    final String bimResultInterpretation = args['bimResultInterpretation'];
+    final CalculatorBrain calc = ModalRoute.of(context).settings.arguments;
+    final String bimResult = calc.calculateBMI();
+    final String bimResultText = calc.getResult();
+    final String bimResultInterpretation = calc.getInterpretation();
 
     return Scaffold(
       appBar: AppBar(

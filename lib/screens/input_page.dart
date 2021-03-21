@@ -242,11 +242,7 @@ class _InputPageState extends State<InputPage> {
               Navigator.pushNamed(
                 context,
                 '/results',
-                arguments: {
-                  'bimResult': calc.calculateBMI(),
-                  'bimResultText': calc.getResult(),
-                  'bimResultInterpretation': calc.getInterpretation(),
-                },
+                arguments: calc,
               );
             },
           )
