@@ -16,10 +16,10 @@ class ReuseAbleCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
+            Radius.circular(5.0),
           ),
         ),
-        margin: EdgeInsets.all(15.0),
+        margin: EdgeInsets.all(10.0),
       ),
     );
   }
