@@ -1,12 +1,10 @@
-import 'package:bmi_calculator/icon_content.dart';
-import 'package:bmi_calculator/reusable_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const bottomContainerHeight = 80.0;
-const activeCardColor = Color(0xFC1D1F33);
-const inactiveCardColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFEB1555);
+import 'icon_content.dart';
+import 'reusable_card.dart';
+import 'constants.dart';
 
 enum Gender {
   male,
@@ -20,29 +18,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender gender;
-  // Color maleCardColor = inactiveCardColor;
-  // Color femaleCardColor = inactiveCardColor;
-  //
-  // void updateColor(Gender gender) {
-  //   switch (gender) {
-  //     case Gender.male:
-  //       maleCardColor = maleCardColor == inactiveCardColor
-  //           ? activeCardColor
-  //           : inactiveCardColor;
-  //       femaleCardColor = maleCardColor == activeCardColor
-  //           ? inactiveCardColor
-  //           : activeCardColor;
-  //       break;
-  //     case Gender.female:
-  //       femaleCardColor = femaleCardColor == inactiveCardColor
-  //           ? activeCardColor
-  //           : inactiveCardColor;
-  //       maleCardColor = femaleCardColor == activeCardColor
-  //           ? inactiveCardColor
-  //           : activeCardColor;
-  //       break;
-  //   }
-  // }
+  double _myHeight = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +34,8 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReuseAbleCard(
                     color: gender == Gender.male
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.mars,
                       label: 'MALE',
@@ -74,8 +50,8 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReuseAbleCard(
                     color: gender == Gender.female
-                        ? activeCardColor
-                        : inactiveCardColor,
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
                     cardChild: IconContent(
                       icon: FontAwesomeIcons.venus,
                       label: 'FEMALE',
@@ -92,7 +68,67 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReuseAbleCard(
-              color: activeCardColor,
+              color: kActiveCardColor,
+              cardChild: Container(
+                padding: EdgeInsets.only(
+                  top: 15.0,
+                  bottom: 15.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'HEIGHT',
+                        style: kIconTextStyle,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            _myHeight.toStringAsFixed(0),
+                            style: kNumberTextStyle,
+                          ),
+                          Text(
+                            'cm',
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          trackHeight: 1.0,
+                          activeTrackColor: Color(0xFFFFFFFF),
+                          inactiveTrackColor: Color(0xFF8D8E98),
+                          thumbColor: Color(0xFFEB1555),
+                          overlayColor: Color(0x29EB1555),
+                          thumbShape: RoundSliderThumbShape(
+                            enabledThumbRadius: 16.0,
+                          ),
+                          overlayShape: RoundSliderOverlayShape(
+                            overlayRadius: 30.0,
+                          ),
+                        ),
+                        child: Slider(
+                          value: _myHeight,
+                          min: 0,
+                          max: 240,
+                          onChanged: (cursorValue) {
+                            setState(() => _myHeight = cursorValue);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -100,20 +136,20 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReuseAbleCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
                 Expanded(
                   child: ReuseAbleCard(
-                    color: activeCardColor,
+                    color: kActiveCardColor,
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            height: bottomContainerHeight,
-            color: bottomContainerColor,
+            height: kBottomContainerHeight,
+            color: kBottomContainerColor,
             width: double.infinity,
             margin: EdgeInsets.only(top: 10.0),
           )
