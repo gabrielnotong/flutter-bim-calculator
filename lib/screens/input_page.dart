@@ -1,10 +1,13 @@
+import 'package:bmi_calculator/components/bottom_button.dart';
+
+import '../components/rounded_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constants.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
+import '../constants.dart';
 
 const minWeight = 40;
 const minAge = 18;
@@ -29,7 +32,7 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BIM CALCULATOR'),
+        title: kAppTitleText,
       ),
       body: Column(
         children: [
@@ -226,35 +229,17 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            height: kBottomContainerHeight,
-            color: kBottomContainerColor,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10.0),
+          BottomButton(
+            label: 'CALCULATE',
+            onPress: () {
+              Navigator.pushNamed(
+                context,
+                '/results',
+              );
+            },
           )
         ],
       ),
-    );
-  }
-}
-
-class RoundedIconButton extends StatelessWidget {
-  final IconData icon;
-  final Function onClick;
-
-  RoundedIconButton({this.icon, this.onClick});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onClick,
-      fillColor: Color(0xFF4C4F5E),
-      shape: CircleBorder(),
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      child: Icon(icon),
     );
   }
 }
