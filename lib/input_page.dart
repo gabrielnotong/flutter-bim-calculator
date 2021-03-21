@@ -6,6 +6,9 @@ import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
 
+const minWeight = 40;
+const minAge = 18;
+
 enum Gender {
   male,
   female,
@@ -19,6 +22,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender gender;
   double _myHeight = 0.0;
+  int _myWeight = minWeight;
+  int _myAge = minAge;
 
   @override
   Widget build(BuildContext context) {
@@ -137,11 +142,85 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReuseAbleCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kIconTextStyle,
+                        ),
+                        Text(
+                          _myWeight.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundedIconButton(
+                              icon: Icons.remove,
+                              onClick: () {
+                                setState(() {
+                                  if (_myWeight > minWeight) {
+                                    _myWeight--;
+                                  }
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundedIconButton(
+                              icon: Icons.add,
+                              onClick: () {
+                                setState(() => _myWeight++);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReuseAbleCard(
                     color: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kIconTextStyle,
+                        ),
+                        Text(
+                          _myAge.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundedIconButton(
+                              icon: Icons.remove,
+                              onClick: () {
+                                setState(() {
+                                  if (_myAge > minAge) {
+                                    _myAge--;
+                                  }
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundedIconButton(
+                              icon: Icons.add,
+                              onClick: () {
+                                setState(() => _myAge++);
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -155,6 +234,27 @@ class _InputPageState extends State<InputPage> {
           )
         ],
       ),
+    );
+  }
+}
+
+class RoundedIconButton extends StatelessWidget {
+  final IconData icon;
+  final Function onClick;
+
+  RoundedIconButton({this.icon, this.onClick});
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onClick,
+      fillColor: Color(0xFF4C4F5E),
+      shape: CircleBorder(),
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      child: Icon(icon),
     );
   }
 }
